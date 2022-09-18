@@ -1,0 +1,315 @@
+#:kivy 2.1.0
+
+<HomeScreen>:
+    name: 'homescreen'
+    id: hscreen
+
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing:dp(40)
+        padding:dp(40)
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing:dp(30)
+                
+            MDRoundFlatButton:
+                text: "MENU"
+                pos_hint: {'center_x': 0.5,'center_y': 0.2} 
+                on_release: 
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'menuscreen' 
+                halign: 'center' 
+                font_size: '22sp'
+                size_hint: .6,None
+                     
+            MDRoundFlatButton:
+                text: "RAINBOW"
+                pos_hint: {'center_x': 0.5,'center_y': 0.3} 
+                on_release: app.rainbow() 
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: .6,None
+
+            MDRoundFlatButton:
+                text: "COLOR"
+                pos_hint: {'center_x': 0.5,'center_y': 0.4}
+                on_release: app.color_picker.open_color_picker() 
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: .6,None
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing:dp(5)
+            
+            LampIcon:
+                icon: app.icon
+                pos_hint: {'center_x': 0.5,'center_y': 0.5} 
+                font_size: dp(200) 
+                theme_text_color: "Custom"
+                text_color: app.icon_color
+                halign: 'center' 
+            Spinner:
+                id:devices_list_id
+                text: app.spinner_text
+                values: app.spinner_list
+                size_hint: None,None   
+                size: dp(120),dp(30)             
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}  
+                background_normal: ''
+                background_color: app.theme_cls.primary_dark
+                on_text: app.update_selected_device(*args)  
+                on_release: app.close_spinner()
+            
+
+<LampIcon>:
+  
+<DataScreen>:
+    name: 'datascreen'
+    id: dscreen
+    
+    MDRelativeLayout:
+
+        MDTextField:
+            id: host
+            hint_text:'Host:'
+            mode:'round'
+            pos_hint: {'center_x': 0.5,'center_y': 0.8}
+            font_size: '26sp'
+            size_hint: 0.5,None
+    
+        MDTextField:
+            id: user
+            hint_text: 'User:' 
+            mode:'round'
+            pos_hint: {'center_x': 0.5,'center_y': 0.6}
+            font_size: '26sp'
+            size_hint: .5,None
+            
+        MDTextField:
+            id: password
+            mode:'round'
+            password:'true'
+            hint_text: "Password:"
+            pos_hint: {'center_x': 0.5,'center_y': 0.4}
+            font_size: '26sp'
+            size_hint: .5,None
+
+        MDIconButton:
+            icon: "content-save"
+            pos_hint: {'center_x': 0.5,'center_y': 0.1}
+            md_bg_color: app.theme_cls.primary_dark
+            on_press: 
+                app.create_profile(host.text, user.text, password.text)         
+
+<MenuScreen>:
+    name: 'menuscreen'
+    id: menuscreen
+    
+    MDRoundFlatButton:
+        text: "CONNECT"
+        pos_hint: {'center_x': 0.5,'center_y': 0.9} 
+        on_release: app.connect_button()
+        font_size: '26sp' 
+        size_hint: .4,None
+        halign: 'center'
+
+    MDRoundFlatButton:
+        pos_hint: {'center_x': 0.5,'center_y': 0.7}
+        text: "ADD"
+        on_release: app.add_dialogbox.show_dialog()
+        font_size: '26sp'
+        size_hint: .4,None
+        halign: 'center'
+
+    MDRoundFlatButton:
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        text: "REMOVE"
+        on_release: app.remove_dialogbox.show_dialog() 
+        font_size: '26sp'
+        size_hint: .4,None
+        halign: 'center'
+
+    MDRoundFlatButton:
+        text: "LOG"
+        pos_hint: {'center_x': 0.5,'center_y': 0.3} 
+        on_release: app.log_dialogbox.show_dialog()  
+        halign: 'center'
+        font_size: '26sp'
+        size_hint: .4,None
+
+    MDRoundFlatButton:
+        text: "INFO"
+        pos_hint: {'center_x': 0.5,'center_y': 0.1}
+        on_release: 
+            root.manager.transition.direction = 'left'
+            root.manager.current = 'infoscreen' 
+        halign: 'center'
+        font_size: '26sp'
+        size_hint: .4,None      
+
+<InfoScreen>:
+
+    name: 'infoscreen'
+    id: iscreen
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding:30
+        spacing:10
+        
+        ScrollView:
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+            MDLabel:
+                halign: 'center'
+                text: 
+                    """[b][color=3333ff][size=22sp]LampApp[/size][/color][/b]
+                    \nby Christian Iannella 
+                    \n
+                    \nThank you for downloading
+                    \nmy first App!
+                    \nThis app was written entirely 
+                    \nin Python and Kivy, it's a MQTT client.
+                    \nIt's the first version 
+                    \nand does not use encrypted 
+                    \ncommunication, so [color=ff3333]avoid using 
+                    \npasswords that you also use elsewhere.[/color]
+                    \nAlong with the app you will need 
+                    \na 'LampApp' device.
+                    \nHowever it is possible to use 
+                    \nthe app without 'LampApp' devices,
+                    \nhere I will explain how to do it.
+                    \nThe first thing you will need to
+                    \ndo is choose the MQTT broker
+                    \n([u]broker.hivemq.com[/u] etc). 
+                    \nOnce this is done, you just 
+                    \nhave to choose your username and 
+                    \npassword. The same data must
+                    \nbe used for the devices to associate!
+                    \nThe app will post on a topic like this: 
+                    \n[u]<user>/<password>/wifilamp/<device_name>[/u]
+                    \nand subscribe to a topic like this:
+                    \n[u]<user>/<password>/wifilamp/callback/<device_name>[/u]
+                    \nThe device will publish messages on 
+                    \nthe topic to which the app is subscribed,
+                    \nand is subscribed to the topic
+                    \non which the app will publish.
+                    \nThe device will publish the string 
+                    \n[u]'pon'[/u] to say it is on and [u]'poff'[/u] 
+                    \nwhen unplugged.
+                    \nWhen you tap the lamp icon the app will 
+                    \npublish an [u]'on'[/u] string if the device is 
+                    \nturned off and [u]'off'[/u] if it is turned on.
+                    \nOnly if the device responds with [u]'on'[/u] 
+                    \nor [u]'off'[/u], the icon will turn 
+                    \nwhite (on) or black (off).
+                    \nIf you hit the 'RAINBOW' button
+                    \nit will post a [u]'rainbow'[/u] string 
+                    \nand expect the same string in response.
+                    \nWhen you select a coloro the message will be a 
+                    \nstring like this: <r>,<g>,<b>,<brightness>, every 
+                    \nvariable is a number from 0 to 255.
+                    \nI hope you enjoy this App.
+                    \nFollow me and don't miss updates about LampApp devices.
+                    \nGitHub: [b][color=3333ff][size=22sp]ChristianIannella[/size][/color][/b]
+                    \nInstagram: [b][color=3333ff][size=22sp]chris_maker_[/size][/color][/b]
+                    
+                    """
+                markup: True
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+
+        FitImage:
+            size_hint: None,None
+            size: dp(100),dp(100) 
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+            radius: [30, 30, 30, 30, ]
+            source: 'images/chris_maker_logo_150x150.png'  
+
+<AddContent>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+    MDLabel:
+        id:add_dialog_lbl
+        text:'Device name:'
+    MDTextField:
+        id: add_input_topic
+        mode:'round'
+
+<RemoveContent>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+    MDLabel:
+        id:remove_dialog_lbl
+        text:'Device name:'
+    MDTextField:
+        id: remove_input_topic
+        mode:'round' 
+
+
+                
+
+    
+
+<LogContent>
+    log_id: log_list_id
+    orientation: "vertical"
+    size_hint_y: None
+   
+    ScrollView:
+        MDLabel:
+            id: log_list_id 
+            text: app.logs    
+            font_size: 14
+            size_hint: 0.8, 1
+            pos_hint: {'center_x': 0.5,'center_y': 0.5} 
+            markup: True
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            
+  
+<MainWindow>:
+    scr_manager: scr_manager
+    ScreenManager:
+        id: scr_manager
+        size_hint_y: None
+        height: root.height - appbar.height
+        y:appbar.top
+
+        HomeScreen:
+            name: 'homescreen'
+            id: hscreen
+        DataScreen:
+            name: 'datascreen'
+            id: dscreen
+        MenuScreen:
+            name: 'menuscreen'
+            id: menscreen         
+        InfoScreen:
+            name: 'infoscreen'
+            id: iscreen
+            
+    MDTopAppBar:  
+        id: appbar  
+        
+        MDBoxLayout:
+            spacing:5
+
+            MDIcon:
+                icon:app.connection_icon     
+                pos_hint: {'center_y': 0.6} 
+
+            MDIcon:
+                icon: app.device_connection_icon  
+                pos_hint: {'center_y': 0.6} 
+   
+
+                      
+                
+                
+            
