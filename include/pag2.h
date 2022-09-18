@@ -8,7 +8,7 @@ static const char PROGMEM pag2[] = R"rawliteral(
 <html>
   <head>
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">
-    <title>LampApp</title>
+    <title>WiFi Relay</title>
     <style type="text/css">
       body{
               font-family: courier, courier-new, serif;

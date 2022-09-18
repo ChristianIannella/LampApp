@@ -2,6 +2,7 @@
 #define access_point_h
 
 #include "Arduino.h"
+#include "mqtt.h"
 #include <WiFi.h>
 #include <WiFiClient.h>
 #include <WebServer.h>
@@ -14,6 +15,7 @@
 const char *ap_ssid = "WiFi Lamp";
 const char *ap_password = "12345678";
 
+
 WebServer server(80);
 
 extern bool ap_mode;
@@ -23,20 +25,28 @@ void handleconf();
 void handleNotFound();
 void handlesave();
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void handleconf()
 {
   server.send(200, "text/html", pag1);
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void handleinfo()
 {
   server.send(200, "text/html", pag_info);
 }
 
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 void handleNotFound()
 {
   server.send(404, "text/html", notfound_pag);
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void handlesave()
 {
@@ -44,7 +54,7 @@ void handlesave()
 
   if (server.args() > 0)
   {
-    for (uint8_t i = 0; i < 6; i++)
+    for (uint8_t i = 0; i < 7; i++)
     {
       str += server.argName(i) + " = " + server.arg(i) + "\r\n";
 
@@ -69,17 +79,23 @@ void handlesave()
       }
       else if (i == 3)
       {
+        File port_file = SPIFFS.open(F("/port.txt"), "w");
+        port_file.print(server.arg(i));
+        port_file.close();
+      }
+      else if (i == 4)
+      {
         File mqttus_file = SPIFFS.open(F("/mqttuser.txt"), "w");
         mqttus_file.print(server.arg(i));
         mqttus_file.close();
       }
-      else if (i == 4)
+      else if (i == 5)
       {
         File mqttpas_file = SPIFFS.open(F("/mqttpassword.txt"), "w");
         mqttpas_file.print(server.arg(i));
         mqttpas_file.close();
       }      
-      else if (i == 5)
+      else if (i == 6)
       {
         File nome_file = SPIFFS.open(F("/nome.txt"), "w");
         nome_file.print(server.arg(i));
@@ -91,6 +107,8 @@ void handlesave()
   delay(1000);
   ESP.restart();
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 void create_ap()
 {
@@ -109,5 +127,7 @@ void create_ap()
   server.begin();
  
 }
+
+//---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 #endif

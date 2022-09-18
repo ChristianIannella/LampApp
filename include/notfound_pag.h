@@ -7,7 +7,7 @@ static const char PROGMEM notfound_pag[] = R"rawliteral(
 <html>
   <head>
   <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">
-  <title>LampApp</title>
+  <title>WiFi Relay</title>
     <style type="text/css">
       body{
               font-family: courier, courier-new, serif;
@@ -31,7 +31,7 @@ static const char PROGMEM notfound_pag[] = R"rawliteral(
         <p1>Ops... sembra ci sia un problema!<p1>
     <p>Scansiona il codice QR</p>
     <p>oppure</p>
-    <p>cerca: <a href=http:192.168.4.1</a></p>
+    <p>cerca: <a href=http://www.wifirelay.com>http://www.wifirelay.com</a></p>
   </body>
 </html>
 )rawliteral";

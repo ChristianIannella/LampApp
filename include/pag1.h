@@ -9,7 +9,7 @@ static const char PROGMEM pag1[] = R"rawliteral(
 <html>
   <head>
     <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">
-    <title>LampApp</title>
+    <title>Configurazione Relay WiFi</title>
     <style type="text/css">
       p{
         font-family: courier, courier-new, serif;
@@ -50,9 +50,11 @@ static const char PROGMEM pag1[] = R"rawliteral(
     <form method="post" action="/save" >
     Rete WiFI:<br><input name="Rete WiFi" type="text" size="16" value=""  ><br><br>
     <br><br>
-    Password Wifi:<br><input name="Password WiFi" type="password" size="16" value="" ><br><br> 
+    Password:<br><input name="Password" type="password" size="16" value="" ><br><br> 
     <br><br>
     Broker:<br><input name="Broker" type="text" size="16" value=""  ><br><br>
+    <br><br>
+    Port:<br><input name="Port" type="text" size="16" value="" ><br><br> 
     <br><br>
     User:<br><input name="User" type="text" size="16" value="" ><br><br> 
     <br><br>
