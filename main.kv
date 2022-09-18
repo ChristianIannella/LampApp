@@ -14,17 +14,17 @@
                 
             MDRoundFlatButton:
                 text: "MENU"
-                pos_hint: {'center_x': 0.5,'center_y': 0.5} 
+                pos_hint: {'center_x': 0.5,'center_y': 0.2} 
                 on_release: 
                     root.manager.transition.direction = 'left'
-                    root.manager.current = 'devicescreen' 
+                    root.manager.current = 'menuscreen' 
                 halign: 'center' 
                 font_size: '22sp'
                 size_hint: .6,None
                      
             MDRoundFlatButton:
                 text: "RAINBOW"
-                pos_hint: {'center_x': 0.5,'center_y': 0.5} 
+                pos_hint: {'center_x': 0.5,'center_y': 0.3} 
                 on_release: app.rainbow() 
                 halign: 'center'
                 font_size: '22sp'
@@ -32,8 +32,8 @@
 
             MDRoundFlatButton:
                 text: "COLOR"
-                pos_hint: {'center_x': 0.5,'center_y': 0.5}
-                on_release: app.color_picker.open_color_picker()  
+                pos_hint: {'center_x': 0.5,'center_y': 0.4}
+                on_release: app.color_picker.open_color_picker() 
                 halign: 'center'
                 font_size: '22sp'
                 size_hint: .6,None
@@ -45,7 +45,7 @@
             LampIcon:
                 icon: app.icon
                 pos_hint: {'center_x': 0.5,'center_y': 0.5} 
-                font_size: dp(80) 
+                font_size: dp(200) 
                 theme_text_color: "Custom"
                 text_color: app.icon_color
                 halign: 'center' 
@@ -68,62 +68,54 @@
     name: 'datascreen'
     id: dscreen
     
-    MDBoxLayout:
-        orientation: 'vertical'
-        spacing:dp(50)
-        padding:dp(30),dp(100)
-       
-        MDTextField:
-            id: host
-            mode:'round'
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            size_hint: 0.8, 0.07
-            hint_text:'Host:'
+    MDRelativeLayout:
 
         MDTextField:
-            id: port
+            id: host
+            hint_text:'Host:'
             mode:'round'
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            size_hint: 0.8, 0.07
-            hint_text:'Port:'
+            pos_hint: {'center_x': 0.5,'center_y': 0.8}
+            font_size: '26sp'
+            size_hint: 0.5,None
     
         MDTextField:
             id: user
+            hint_text: 'User:' 
             mode:'round'
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            size_hint: 0.8,0.07
-            hint_text: 'User:'  
+            pos_hint: {'center_x': 0.5,'center_y': 0.6}
+            font_size: '26sp'
+            size_hint: .5,None
             
         MDTextField:
             id: password
             mode:'round'
             password:'true'
             hint_text: "Password:"
-            size_hint: 0.8, 0.07
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+            pos_hint: {'center_x': 0.5,'center_y': 0.4}
+            font_size: '26sp'
+            size_hint: .5,None
 
         MDIconButton:
             icon: "content-save"
-            pos_hint: {'center_x': 0.5,'center_y': 0.5}
-            width: dp(150)
+            pos_hint: {'center_x': 0.5,'center_y': 0.1}
             md_bg_color: app.theme_cls.primary_dark
             on_press: 
-                app.create_profile(host.text, port.text, user.text, password.text)         
+                app.create_profile(host.text, user.text, password.text)         
 
-<DeviceScreen>:
-    name: 'devicescreen'
-    id: devicescreen
+<MenuScreen>:
+    name: 'menuscreen'
+    id: menuscreen
     
     MDRoundFlatButton:
         text: "CONNECT"
-        pos_hint: {'center_x': 0.5,'center_y': 0.7} 
+        pos_hint: {'center_x': 0.5,'center_y': 0.9} 
         on_release: app.connect_button()
         font_size: '26sp' 
         size_hint: .4,None
         halign: 'center'
 
     MDRoundFlatButton:
-        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        pos_hint: {'center_x': 0.5,'center_y': 0.7}
         text: "ADD"
         on_release: app.add_dialogbox.show_dialog()
         font_size: '26sp'
@@ -131,12 +123,30 @@
         halign: 'center'
 
     MDRoundFlatButton:
-        pos_hint: {'center_x': 0.5,'center_y': 0.3}
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
         text: "REMOVE"
         on_release: app.remove_dialogbox.show_dialog() 
         font_size: '26sp'
         size_hint: .4,None
         halign: 'center'
+
+    MDRoundFlatButton:
+        text: "LOG"
+        pos_hint: {'center_x': 0.5,'center_y': 0.3} 
+        on_release: app.log_dialogbox.show_dialog()  
+        halign: 'center'
+        font_size: '26sp'
+        size_hint: .4,None
+
+    MDRoundFlatButton:
+        text: "INFO"
+        pos_hint: {'center_x': 0.5,'center_y': 0.1}
+        on_release: 
+            root.manager.transition.direction = 'left'
+            root.manager.current = 'infoscreen' 
+        halign: 'center'
+        font_size: '26sp'
+        size_hint: .4,None      
 
 <InfoScreen>:
 
@@ -157,8 +167,6 @@
                     \n
                     \nThank you for downloading
                     \nmy first App!
-                    \nYou can follow my projects on 
-                    \nInstagram: chris_maker_
                     \nThis app was written entirely 
                     \nin Python and Kivy, it's a MQTT client.
                     \nIt's the first version 
@@ -172,16 +180,11 @@
                     \nhere I will explain how to do it.
                     \nThe first thing you will need to
                     \ndo is choose the MQTT broker
-                    \n([u]broker.hivemq.com[/u] etc).
-                    \nOnce you have chosen your broker 
-                    \nset the port to use, [u]1883[/u] is the default 
-                    \nMQTT port. Once this is done, you just 
+                    \n([u]broker.hivemq.com[/u] etc). 
+                    \nOnce this is done, you just 
                     \nhave to choose your username and 
                     \npassword. The same data must
                     \nbe used for the devices to associate!
-                    \nYou will also need to assign a name
-                    \ndevices, then add them via the 
-                    \n'DEVICE' button and that's it.
                     \nThe app will post on a topic like this: 
                     \n[u]<user>/<password>/wifilamp/<device_name>[/u]
                     \nand subscribe to a topic like this:
@@ -206,7 +209,10 @@
                     \nstring like this: <r>,<g>,<b>,<brightness>, every 
                     \nvariable is a number from 0 to 255.
                     \nI hope you enjoy this App.
-                    \nFollo and don't miss updates about LampApp devices.
+                    \nFollow me and don't miss updates about LampApp devices.
+                    \nGitHub: [b][color=3333ff][size=22sp]ChristianIannella[/size][/color][/b]
+                    \nInstagram: [b][color=3333ff][size=22sp]chris_maker_[/size][/color][/b]
+                    
                     """
                 markup: True
                 size_hint_y: None
@@ -244,6 +250,11 @@
         id: remove_input_topic
         mode:'round' 
 
+
+                
+
+    
+
 <LogContent>
     log_id: log_list_id
     orientation: "vertical"
@@ -276,9 +287,9 @@
         DataScreen:
             name: 'datascreen'
             id: dscreen
-        DeviceScreen:
-            name: 'devicescreen'
-            id: devicescreen         
+        MenuScreen:
+            name: 'menuscreen'
+            id: menscreen         
         InfoScreen:
             name: 'infoscreen'
             id: iscreen
@@ -296,12 +307,7 @@
             MDIcon:
                 icon: app.device_connection_icon  
                 pos_hint: {'center_y': 0.6} 
-
-
-            MDIconButton:
-                icon: "file"
-                on_press: app.log_dialogbox.show_dialog()  
-                pos_hint: {'center_y': 0.6}      
+   
 
                       
                 

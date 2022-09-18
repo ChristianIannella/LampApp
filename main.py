@@ -1,32 +1,35 @@
+import ssl
+from kivymd.uix.selectioncontrol import MDSwitch
+from kivymd.uix.pickers import MDColorPicker
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.label import MDIcon
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.boxlayout import MDBoxLayout
+from kivymd.app import MDApp
+from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.storage.jsonstore import JsonStore
+from kivy.properties import ListProperty, ObjectProperty, StringProperty
+import paho.mqtt.client as mqtt
+from typing import Union
+from queue import Queue
+from collections import deque
+from kivy.utils import platform
+from kivy.core.window import Window
+from kivy.config import Config
 import kivy
 kivy.require('2.1.0')
-from kivy.config import Config
-from kivy.core.window import Window
-from kivy.utils import platform
 
 
-if platform== 'android':
+if platform == 'android':
     from android.permissions import request_permissions, Permission
     request_permissions([
-        Permission.READ_EXTERNAL_STORAGE, 
-        Permission.WRITE_EXTERNAL_STORAGE, 
-        Permission.INTERNET
-        ])
+        Permission.INTERNET,
+        Permission.READ_EXTERNAL_STORAGE,
+        Permission.WRITE_EXTERNAL_STORAGE
+    ])
 
-from collections import deque
-from queue import Queue
-from typing import Union
-import paho.mqtt.client as mqtt
-from kivy.properties import ListProperty, ObjectProperty, StringProperty
-from kivy.storage.jsonstore import JsonStore
-from kivy.uix.screenmanager import Screen, ScreenManager
-from kivymd.app import MDApp
-from kivymd.uix.boxlayout import MDBoxLayout
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.label import MDIcon
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.pickers import MDColorPicker
-from kivymd.uix.selectioncontrol import MDSwitch
+
+ssl._create_default_https_context = ssl._create_unverified_context
 
 queue_msg = Queue()
 queue_log = deque(maxlen=50)
@@ -42,6 +45,7 @@ color_list = [0, 0, 0, 1]
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SCREEN::::
 
+
 class MainWindow(Screen):
 
     scr_manager = ObjectProperty(None)
@@ -49,38 +53,40 @@ class MainWindow(Screen):
     def change_screen(self, screen, *args):
         self.ids.scr_manager.current = screen
 
+
 class HomeScreen(Screen):
     devices_list_id = ObjectProperty(None)
 
     def on_touch_move(self, touch):
-        if touch.x > (touch.ox + 70):
+        if touch.x > (touch.ox + 100):
             MDApp.get_running_app().change_screen("datascreen", 'right')
 
-        elif touch.x < (touch.ox - 70):
-            MDApp.get_running_app().change_screen("infoscreen", 'left')
 
 class DataScreen(Screen):
     def on_touch_move(self, touch):
-        if touch.x < (touch.ox - 70):
+        if touch.x < (touch.ox - 100):
             MDApp.get_running_app().change_screen("homescreen", 'left')
 
-class DeviceScreen(Screen):
+
+class MenuScreen(Screen):
     def on_touch_move(self, touch):
-        if touch.x > (touch.ox + 70):
+        if touch.x > (touch.ox + 100):
             MDApp.get_running_app().change_screen("homescreen", 'right')
+
 
 class InfoScreen(Screen):
     def on_touch_move(self, touch):
-        if touch.x > (touch.ox + 70):
+        if touch.x > (touch.ox + 100):
             MDApp.get_running_app().change_screen("homescreen", 'right')
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::SWITCH::::
+
 
 class LampIcon(MDIcon):
     def on_touch_down(self, touch):
         if self.collide_point(*touch.pos):
             global lamp_state
-            if (connection_state == True) :
+            if (connection_state == True):
                 if (lamp_power_state == True):
 
                     if lamp_state == False:
@@ -99,10 +105,11 @@ class LampIcon(MDIcon):
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::COLOR PICKER::::
 
+
 class ColorPicker():
 
     def open_color_picker(self):
-        color_picker = MDColorPicker(size_hint=(0.3, 0.8))
+        color_picker = MDColorPicker(size_hint=(0.6, 0.6))
         color_picker.open()
         color_picker.bind(
             on_select_color=self.on_select_color,
@@ -110,22 +117,24 @@ class ColorPicker():
         )
 
     def get_selected_color(
-        self,
-        instance_color_picker: MDColorPicker,
-        type_color: str,
-        selected_color: Union[list, str],):
-        
-        if(len(selected_color) < 4 ):
-            selected_color[1]=1.0
+            self,
+            instance_color_picker: MDColorPicker,
+            type_color: str,
+            selected_color: Union[list, str],):
+        print(selected_color)
+
+        if (len(selected_color) < 4):
+            if(selected_color[1] > 1.0):
+                selected_color[1] = 1.0
             selected_color.append(1.0)
 
         global color_list
-        color_list=selected_color
-        
+        color_list = selected_color
+
         color_data = (str(int(selected_color[0]*255)) + ',' +
-                       str(int(selected_color[1]*255)) + ',' +
-                       str(int(selected_color[2]*255)) + ',' +
-                       str(int(selected_color[3]*255)))
+                      str(int(selected_color[1]*255)) + ',' +
+                      str(int(selected_color[2]*255)) + ',' +
+                      str(int(selected_color[3]*255)))
 
         if connection_state:
             MqttApp.pub(self, str(color_data))
@@ -134,7 +143,7 @@ class ColorPicker():
 
     def on_select_color(self, instance_gradient_tab, color: list) -> None:
         pass
-        
+
 
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LAST DEVICE::::
 
@@ -161,8 +170,10 @@ class LastDevice():
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::LOG DIALOG BOX::::
 
+
 class LogContent(MDBoxLayout):
     log_id = ObjectProperty(None)
+
 
 class Log_DialogBox():
 
@@ -196,8 +207,10 @@ class Log_DialogBox():
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::DIALOG BOX::::
 
+
 class AddContent(MDBoxLayout):
     pass
+
 
 class Add_DialogBox():
 
@@ -248,8 +261,10 @@ class Add_DialogBox():
             else:
                 self.dialog.content_cls.ids.add_dialog_lbl.text = 'The device already exists!'
 
+
 class RemoveContent(MDBoxLayout):
     pass
+
 
 class Remove_DialogBox():
 
@@ -316,6 +331,14 @@ def show_data_alert():
     dialog.open()
 
 
+def show_longer_alert():
+
+    dialog = MDDialog(
+        text="User and password must be at least 12 characters long",
+        radius=[20, 7, 20, 7],)
+    dialog.open()
+
+
 def show_connection_alert():
 
     dialog = MDDialog(
@@ -324,6 +347,7 @@ def show_connection_alert():
     dialog.open()
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MQTT::::
+
 
 class MqttApp():
 
@@ -343,7 +367,7 @@ class MqttApp():
             user_data = JsonStore('user_data.json')
             profile = user_data.get('profile')
             broker_address = profile['new_host']
-            port = profile['new_port']
+            port = 1883
             user = profile['new_user']
             password = profile['new_password']
 
@@ -360,13 +384,11 @@ class MqttApp():
                     text="Add device",
                     radius=[20, 7, 20, 7],)
                 dialog.open()
-                MDApp.get_running_app().update_device_lbl()
             else:
                 dialog = MDDialog(
                     text="Select device",
                     radius=[20, 7, 20, 7],)
                 dialog.open()
-                MDApp.get_running_app().update_device_lbl()
         else:
 
             if topic_list:
@@ -426,7 +448,6 @@ class MqttApp():
         global connection_state
         connection_state = False
         MDApp.get_running_app().update_connection_icon()
-        
 
     def on_message(self, client, userdata, msg):
         queue_msg.put(msg)
@@ -434,13 +455,14 @@ class MqttApp():
 
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::MAIN::::
 
+
 class MainApp(MDApp):
 
     icon_color = ListProperty()
     icon = StringProperty()
     device_connection_icon = StringProperty()
     spinner_text = StringProperty()
-    connection_icon= StringProperty()
+    connection_icon = StringProperty()
     device_name_lbl = StringProperty()
     user_data = ObjectProperty(None)
     spinner_list = ListProperty()
@@ -456,8 +478,8 @@ class MainApp(MDApp):
     def __init__(self, *args, **kwargs):
         super(MainApp, self).__init__(*args, **kwargs)
         self.icon = 'floor-lamp'
-        self.connection_icon= 'earth'
-        self.icon_color= [0,0,0,1]
+        self.connection_icon = 'earth'
+        self.icon_color = [0, 0, 0, 1]
         self.device_name_lbl = ''
         self.device_connection_icon = 'power-plug-off-outline'
         self.user_data = JsonStore('user_data.json')
@@ -477,33 +499,43 @@ class MainApp(MDApp):
         mqtt = MqttApp()
         mqtt.mqtt_connect()
 
+    #def on_resume(self):
+    #    mqtt = MqttApp()
+    #    mqtt.mqtt_connect()
+
     def on_stop(self):
         mqtt = MqttApp()
         mqtt.mqtt_disconnect()
 
-    def create_profile(self, host, port, user, password):
+    def create_profile(self, host, user, password):
 
-        if (host and port and user and password != ''):
-            self.user_data.put('profile',
-                               new_host=host,
-                               new_port=port,
-                               new_user=user,
-                               new_password=password,
-                               )
-            self.change_screen("homescreen", 'left')
+        if(len(user) < 12 or len(password) < 12):
+            show_longer_alert()
         else:
-            show_data_alert()
-        global lamp_power_state 
+            if (host and user and password != ''):
+                self.user_data.put('profile',
+                                   new_host=host,
+                                   new_user=user,
+                                   new_password=password,
+                                   )
+                self.change_screen("homescreen", 'left')
+            else:
+                show_data_alert()
+
+        global lamp_power_state
         lamp_power_state = False
         self.update_msg_decoder()
         mqtt = MqttApp()
         mqtt.mqtt_connect()
 
     def connect_button(self):
-        if connection_state == False:
-            mqtt = MqttApp()
-            mqtt.mqtt_connect()
-            update_connection_icon()
+        try:
+            if connection_state == False:
+                mqtt = MqttApp()
+                mqtt.mqtt_connect()
+                update_connection_icon()
+        except:
+            pass
 
     def change_screen(self, screen_name, transition):
         screen_manager = self.root.ids["scr_manager"]
@@ -548,7 +580,7 @@ class MainApp(MDApp):
     def update_selected_device(self, *args):
         global selected_topic
         global incoming_message
-        global lamp_power_state 
+        global lamp_power_state
         global lamp_state
         self.icon = 'floor-lamp'
         self.icon_color = [0, 0, 0, 1]
@@ -564,16 +596,12 @@ class MainApp(MDApp):
         if (selected_topic != '...' or selected_topic != 'No devices' or selected_topic != ''):
 
             if selected_topic in topic_list:
-                self.device_name_lbl = (selected_topic)
                 LastDevice.put_last_device(self)
-                self.change_screen("homescreen", 'right')
                 mqtt = MqttApp()
                 mqtt.mqtt_connect()
-            else:
-                self.device_name_lbl = 'No device'
+
         if selected_topic == '':
             LastDevice.put_last_device(self)
-            self.device_name_lbl = 'No device'
         self.update_spinner_text()
         self.update_msg_decoder()
 
@@ -589,13 +617,6 @@ class MainApp(MDApp):
     def clear_queue_log(self):
         queue_log.clear()
         self.logs = ''
-
-    def update_device_lbl(self):
-
-        if (selected_topic == '' or selected_topic == '...' or selected_topic == 'No devices'):
-            self.device_name_lbl = 'No devices'
-        else:
-            self.device_name_lbl = (selected_topic)                     
 
     def update_msg_decoder(self):
         global lamp_state
@@ -624,31 +645,31 @@ class MainApp(MDApp):
             lamp_power_state = True
             lamp_state = True
             self.icon = 'floor-lamp-outline'
-            self.icon_color = color_list  
+            self.icon_color = color_list
         elif incoming_message == 'poff':
             incoming_message = ''
             lamp_power_state = False
             self.icon = 'floor-lamp'
             self.icon_color = [0, 0, 0, 1]
-            self.device_connection_icon = 'power-plug-off-outline' 
+            self.device_connection_icon = 'power-plug-off-outline'
         elif incoming_message == 'pon':
             incoming_message = ''
             lamp_power_state = True
         incoming_message = ''
-        if lamp_power_state == True: 
+        if lamp_power_state == True:
             self.device_connection_icon = 'power-plug-outline'
         else:
             lamp_state = False
             self.icon = 'floor-lamp'
             self.icon_color = [0, 0, 0, 1]
-            self.device_connection_icon = 'power-plug-off-outline' 
+            self.device_connection_icon = 'power-plug-off-outline'
 
     def update_connection_icon(self):
         if connection_state:
             self.connection_icon = 'earth'
         else:
             self.connection_icon = 'earth-off'
-            self.device_connection_icon = 'power-plug-off-outline' 
+            self.device_connection_icon = 'power-plug-off-outline'
 
 
 def get_msg():
@@ -659,6 +680,7 @@ def get_msg():
         global incoming_message
         incoming_message = str(msg.payload.decode("utf-8"))
         MDApp.get_running_app().update_msg_decoder()
+
 
 get_msg()
 
