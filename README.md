@@ -14,7 +14,7 @@ iOS: coming soon
 Please, feel free to contribute.
 
 
-![Alt text](LampApp_1.2/images/logo_100x100.png?raw=true "Title") 
+![Alt text](LampApp_1.2/images/Logo_100x100.png?raw=true "Title") 
 
 
 # Author
