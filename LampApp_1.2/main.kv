@@ -1,0 +1,447 @@
+#:kivy 2.1.0
+
+<HomeScreen>:
+    name: 'homescreen'
+    id: hscreen
+    MDBoxLayout:
+        orientation: 'vertical'
+        spacing:dp(30)
+        padding:dp(30)
+        #md_bg_color: app.theme_cls.primary_light
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing:dp(30)
+            MDFlatButton:
+                text: "MENU"
+                md_bg_color: app.theme_cls.primary_color
+                theme_text_color: 'Custom'
+                text_color: 'white'
+                pos_hint: {'center_x': 0.5,'center_y': 0.2} 
+                on_release: 
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'menuscreen' 
+                halign: 'center' 
+                font_size: '22sp'
+                size_hint: .6,None
+                     
+            MDFlatButton:
+                text: "RAINBOW"
+                md_bg_color: app.theme_cls.primary_color
+                theme_text_color: 'Custom'
+                text_color: 'white'
+                pos_hint: {'center_x': 0.5,'center_y': 0.3} 
+                on_release: app.rainbow() 
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: .6,None
+                
+
+            MDFlatButton:
+                text: "COLOR"
+                md_bg_color: app.theme_cls.primary_color
+                theme_text_color: 'Custom'
+                text_color: 'white'
+                pos_hint: {'center_x': 0.5,'center_y': 0.4}
+                on_release: 
+                    root.manager.transition.direction = 'left'
+                    root.manager.current = 'colorscreen' 
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: .6,None
+                
+
+
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing:dp(1)
+            LampIcon:
+                nocache: True
+                size_hint: None,None
+                size: dp(270),dp(270) 
+                pos_hint: {'center_x': 0.5}
+                source: app.icon_img
+                halign: 'center' 
+
+            Spinner:
+                id:devices_list_id
+                text: app.spinner_text
+                values: app.spinner_list
+                size_hint: None,None   
+                size: dp(120),dp(30)             
+                pos_hint: {'center_x': 0.5}  
+                background_normal: ''
+                background_color: app.theme_cls.primary_color
+                bar_color: app.theme_cls.primary_color
+                on_text: app.update_selected_device(*args)  
+                on_release: app.close_spinner()
+            
+
+<LampIcon>:
+    
+  
+<DataScreen>:
+    name: 'datascreen'
+    id: dscreen
+    
+    MDRelativeLayout:
+
+        MDTextField:
+            id: host
+            hint_text:'Host:'
+            mode: 'rectangle'
+            pos_hint: {'center_x': 0.5,'center_y': 0.8}
+            font_size: '26sp'
+            size_hint: 0.7,None
+    
+        MDTextField:
+            id: user
+            hint_text: 'User:' 
+            mode:'rectangle'
+            pos_hint: {'center_x': 0.5,'center_y': 0.6}
+            font_size: '26sp'
+            size_hint: .7,None
+            
+        MDTextField:
+            id: password
+            mode:'rectangle'
+            password:'true'
+            hint_text: "Password:"
+            pos_hint: {'center_x': 0.5,'center_y': 0.4}
+            font_size: '26sp'
+            size_hint: .7,None
+
+        MDIconButton:
+            icon: "content-save"
+            icon_size: "64sp"
+            pos_hint: {'center_x': 0.5,'center_y': 0.1}
+            on_press: 
+                app.create_profile(host.text, user.text, password.text)         
+
+<MenuScreen>:
+    name: 'menuscreen'
+    id: menuscreen
+    
+    MDFlatButton:
+        text: "CONNECT"
+        md_bg_color: app.theme_cls.primary_color
+        theme_text_color: 'Custom'
+        text_color: 'white'
+        pos_hint: {'center_x': 0.5,'center_y': 0.9} 
+        on_release: app.connect_button()
+        font_size: '26sp' 
+        size_hint: .4,None
+        halign: 'center'
+
+    MDFlatButton:
+        pos_hint: {'center_x': 0.5,'center_y': 0.7}
+        text: "ADD"
+        md_bg_color: app.theme_cls.primary_color
+        theme_text_color: 'Custom'
+        text_color: 'white'
+        on_release: app.add_dialogbox.show_dialog()
+        font_size: '26sp'
+        size_hint: .4,None
+        halign: 'center'
+
+    MDFlatButton:
+        pos_hint: {'center_x': 0.5,'center_y': 0.5}
+        text: "REMOVE"
+        md_bg_color: app.theme_cls.primary_color
+        theme_text_color: 'Custom'
+        text_color: 'white'
+        on_release: app.remove_dialogbox.show_dialog() 
+        font_size: '26sp'
+        size_hint: .4,None
+        halign: 'center'
+
+    MDFlatButton:
+        text: "LOG"
+        md_bg_color: app.theme_cls.primary_color
+        theme_text_color: 'Custom'
+        text_color: 'white'
+        pos_hint: {'center_x': 0.5,'center_y': 0.3} 
+        on_release: app.log_dialogbox.show_dialog()  
+        halign: 'center'
+        font_size: '26sp'
+        size_hint: .4,None
+
+    MDFlatButton:
+        text: "INFO"
+        md_bg_color: app.theme_cls.primary_color
+        theme_text_color: 'Custom'
+        text_color: 'white'
+        pos_hint: {'center_x': 0.5,'center_y': 0.1}
+        on_release: 
+            root.manager.transition.direction = 'left'
+            root.manager.current = 'infoscreen' 
+        halign: 'center'
+        font_size: '26sp'
+        size_hint: .4,None      
+
+<ColorScreen>:
+    name: 'colorscreen'
+    id: cscreen
+    
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding: dp(40)
+        MDBoxLayout:
+            spacing:dp(40)
+            MDIconButton:           
+                pos_hint: {'center_x': 0.2,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'red'
+                on_press: 
+                    app.color_picker.send_color_picked('Red')   
+            MDIconButton:
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: .1, .3
+                icon: "floor-lamp"
+                md_bg_color: 'pink' 
+                on_press: 
+                    app.color_picker.send_color_picked('Pink') 
+            MDIconButton:
+                pos_hint: {'center_x': 0.8,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: .1, .3
+                icon: "floor-lamp"
+                md_bg_color: 'purple'     
+                on_press: 
+                    app.color_picker.send_color_picked('Purple')
+
+        MDBoxLayout:
+            spacing:dp(40)
+            MDIconButton:
+                pos_hint: {'center_x': 0.2,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'blue'    
+                on_press: 
+                    app.color_picker.send_color_picked('Blue')
+            MDIconButton:
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'lightblue'
+                on_press: 
+                    app.color_picker.send_color_picked('LightBlue')
+            MDIconButton:
+                pos_hint: {'center_x': 0.8,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'cyan'
+                on_press: 
+                    app.color_picker.send_color_picked('Cyan')
+
+        MDBoxLayout:
+            spacing: dp(40)
+            MDIconButton:
+                pos_hint: {'center_x': 0.2,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'green'
+                on_press: 
+                    app.color_picker.send_color_picked('Green')
+            MDIconButton:
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'lightgreen' 
+                on_press: 
+                    app.color_picker.send_color_picked('LightGreen')
+            MDIconButton:
+                pos_hint: {'center_x': 0.8,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'lime' 
+                on_press: 
+                    app.color_picker.send_color_picked('Lime')
+        MDBoxLayout:
+            spacing: dp(40)           
+            MDIconButton:
+                pos_hint: {'center_x': 0.2,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'yellow'    
+                on_press: 
+                    app.color_picker.send_color_picked('Yellow')
+            MDIconButton:
+                pos_hint: {'center_x': 0.5,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'orange' 
+                on_press: 
+                    app.color_picker.send_color_picked('Orange')
+            MDIconButton:
+                pos_hint: {'center_x': 0.8,'center_y': 0.5}
+                halign: 'center'
+                font_size: '22sp'
+                size_hint: 0.1, 0.3
+                icon: "floor-lamp"
+                md_bg_color: 'violet'  
+                on_press: 
+                    app.color_picker.send_color_picked('Violet')
+        
+
+                
+<InfoScreen>:
+
+    name: 'infoscreen'
+    id: iscreen
+    MDBoxLayout:
+        orientation: 'vertical'
+        padding:30
+        spacing:10
+        ScrollView:
+            
+            MDLabel:
+                halign: 'center'
+                text: 
+                    """[b][color=3333ff][size=24sp]LampApp[/size][/color][/b]
+                    \n 
+                    \nThank you for downloading my App!
+                    \nThis app is part of open-source project, 
+                    \nwas written entirely in Python and Kivy.
+                    \nI hope you enjoy it.
+                    \n
+                    \nIf you want to know more
+                    \n[b][u][color=3333ff][size=22sp][ref=https://linktr.ee/chris_maker_]CLICK HERE![/ref][/size][/color][/u][/b]
+                    \n
+                    \nFollow me and don't miss updates about LampApp devices.
+                    \n
+                    \nChristian Iannella
+                    
+                    
+                    """
+                markup: True
+                size_hint_y: None
+                height: self.texture_size[1]
+                text_size: self.width, None
+                on_ref_press:
+                    import webbrowser
+                    webbrowser.open(args[1])
+                  
+                MDBoxLayout:
+                    MDIcon:
+                        icon: 'github'
+                    MDIcon:
+                        icon: 'facebook'
+                    MDIcon:
+                        icon: 'instagram'
+                    
+        Image:
+            size_hint: None,None
+            size: dp(100),dp(100) 
+            pos_hint: {'center_x': 0.5,'center_y': 0.5}
+            radius: [30, 30, 30, 30, ]
+            source: 'images/Logo_100x100.png'  
+
+<AddContent>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+    MDLabel:
+        id:add_dialog_lbl
+        text:'Device name:'
+    MDTextField:
+        id: add_input_topic
+        mode:'rectangle'
+
+<RemoveContent>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+    MDLabel:
+        id:remove_dialog_lbl
+        text:'Device name:'
+    MDTextField:
+        id: remove_input_topic
+        mode:'rectangle' 
+
+<LogContent>
+    log_id: log_list_id
+    orientation: "vertical"
+    size_hint_y: None
+   
+    ScrollView:
+        do_scroll_x: False
+        MDLabel:
+            id: log_list_id 
+            text: app.logs    
+            font_size: 14
+            size_hint: 0.8, 1
+            pos_hint: {'center_x': 0.5,'center_y': 0.5} 
+            markup: True
+            size_hint_y: None
+            height: self.texture_size[1]
+            text_size: self.width, None
+            
+  
+<MainWindow>:
+    scr_manager: scr_manager
+    ScreenManager:
+        id: scr_manager
+        size_hint_y: None
+        height: root.height - appbar.height
+        y:appbar.top
+
+        HomeScreen:
+            name: 'homescreen'
+            id: hscreen
+        DataScreen:
+            name: 'datascreen'
+            id: dscreen
+        MenuScreen:
+            name: 'menuscreen'
+            id: menscreen         
+        InfoScreen:
+            name: 'infoscreen'
+            id: iscreen    
+        ColorScreen:
+            name: 'colorscreen'
+            id: cscreen 
+
+
+    MDTopAppBar:  
+        id: appbar  
+        
+        MDBoxLayout:
+            spacing:5
+
+            MDIcon:
+                icon:app.connection_icon     
+                pos_hint: {'center_y': 0.6} 
+
+            MDIcon:
+                icon: app.device_connection_icon  
+                pos_hint: {'center_y': 0.6} 
+   
+
+                      
+                
+                
+            
