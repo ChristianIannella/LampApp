@@ -1,11 +1,11 @@
-# LampApp#0969DA
+# LampApp
 A pretty remotely controlled lamp.
 
 
 
-[Download for Android](https://play.google.com/store/apps/details?id=com.lampapp.lampapp&hl=it&gl=IT)
+[Download for Android](https://play.google.com/store/apps/details?id=com.lampapp.lampapp&hl=it&gl=IT) 🤖:
 
-iOS: coming soon
+iOS: coming soon 🍎:
 
 
 
