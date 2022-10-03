@@ -1,4 +1,4 @@
-# LampApp`#0969DA`
+# LampApp
 A pretty remotely controlled lamp.
 
 
