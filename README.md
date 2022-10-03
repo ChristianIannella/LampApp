@@ -8,7 +8,7 @@ Android: https://play.google.com/store/apps/details?id=com.lampapp.lampapp&hl=it
 
 iOS: coming soon
 
-
+How the app works?
 
 # Contribute
 Please, feel free to contribute.
