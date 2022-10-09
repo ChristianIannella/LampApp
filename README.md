@@ -63,6 +63,13 @@ Messaggio: `your_user/your-password/wifilamp/device_name/255,255,255,255`
 
 Risposta: `your_user/your-password/wifilamp/callback/device_name/ok`
 
+Ma come faccio a sapere se il dispositivo è collegato e funzionante?
+Quando il dispositivo è alimentato e connesso alla rete pubblica in automatico un messaggio sul topic di callback con contenuto `pon` che sta per 
+power on, questo messaggio farà cambiare l'icona della spina in basso a sinistra ad indicare che il dispositivo è collegato. 
+Lo stesso succedera anche se il dispositivo pubblica il messaggiop `on`, in questo caso aprendo l'app troveremo l'icona della spina cambiata e la lampada accesa.
+
+Quando il dispositivo viene scollegato dopo qualche secondo il broker pubblichera un messaggio di testamento con il contenuto `poff` in questo caso power off, adesso l'iconna della spina sarà barrata e se provassimo ad accendere la lampada tramite app ci appararirà un messaggio che ci dice che il dispositivo non è collegato.
+
 
 [Download for Android](https://play.google.com/store/apps/details?id=com.lampapp.lampapp&hl=it&gl=IT) 
 
