@@ -21,8 +21,8 @@ Potrai usare qualsiasi broker mqtt come (broker.hivemq.com oppure broker.emqx.io
 iOS: coming soon 
 
 
-[How it works?(Come funziona?)](https://github.com/ChristianIannella/LampApp/blob/main/LampApp_1.2/README.md)
-
+[How the app works?(Come funziona l'app?)](https://github.com/ChristianIannella/LampApp/blob/main/LampApp_1.2/README.md)
+[How the device works?(Come funziona il dispositivo?)](https://github.com/ChristianIannella/LampApp/blob/main/LampApp_1.2/README.md)
 
 # Contribute
 Please, feel free to contribute.
