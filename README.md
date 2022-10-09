@@ -12,6 +12,9 @@ Tramite l'app è possibile pilotare tutti i dispositivi che avrai installato in 
 Questo sistema sfrutta il protocollo MQTT ma per ora senza certificati quindi assicurati di non appoggiarti a reti pubbliche e non usare password
 che usi altrove o comuni!
 
+Potrai usare qualsiasi broker mqtt come (broker.hivemq.com oppure broker.emqx.io) ricorda solo che dovrà essere lo stesso per tutti i dispositivi.
+
+
 Per aggiungere un dispositivo nella tua app ti basterà andare alla voce `MENU` e poi ad `ADD` e inserire il nome del dispositivo che intendi utilizzare.
 Fai attenzione alle maiuscole!
 Per rimuoverlo usa il pulsante `REMOVE`
@@ -65,11 +68,18 @@ Risposta: `your_user/your-password/wifilamp/callback/device_name/ok`
 
 Ma come faccio a sapere se il dispositivo è collegato e funzionante?
 
-Quando il dispositivo è alimentato e connesso alla rete pubblica in automatico un messaggio sul topic di callback con contenuto `pon` che sta per 
+Quando il dispositivo è alimentato e connesso alla rete, pubblica in automatico un messaggio sul topic di callback con contenuto `pon` che sta per 
 power on, questo messaggio farà cambiare l'icona della spina in basso a sinistra ad indicare che il dispositivo è collegato. 
 Lo stesso succedera anche se il dispositivo pubblica il messaggiop `on`, in questo caso aprendo l'app troveremo l'icona della spina cambiata e la lampada accesa.
 
-Quando il dispositivo viene scollegato dopo qualche secondo il broker pubblichera un messaggio di testamento con il contenuto `poff` in questo caso power off, adesso l'iconna della spina sarà barrata e se provassimo ad accendere la lampada tramite app ci appararirà un messaggio che ci dice che il dispositivo non è collegato.
+Quando il dispositivo viene scollegato, il broker pubblicherà in automatico un messaggio di testamento con il contenuto `poff` che sta per power off, adesso l'iconna della spina sarà barrata e se provassimo ad accendere la lampada tramite app ci appararirà un messaggio che ci dice che il dispositivo non è collegato.
+
+Tutti i messaggi di callback ovvero quelli dai dispositivi verso l'app dovranno avere il flag diretain impostato su true.
+
+
+Il pulsante  'LOG' mostra un elenco di tutti i messaggi in entrata e in uscita.
+
+
 
 
 [Download for Android](https://play.google.com/store/apps/details?id=com.lampapp.lampapp&hl=it&gl=IT) 
