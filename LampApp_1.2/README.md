@@ -63,6 +63,6 @@ Quando il dispositivo viene scollegato, il broker pubblicherà in automatico un 
 Tutti i messaggi di callback ovvero quelli dai dispositivi verso l'app dovranno avere il flag diretain impostato su true.
 
 
-Il pulsante  'LOG' mostra un elenco di tutti i messaggi in entrata e in uscita.
+Il pulsante  `LOG` mostra un elenco di tutti i messaggi in entrata e in uscita.
 
 
