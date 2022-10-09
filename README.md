@@ -7,9 +7,10 @@ Si compone di una app e di un dispositivo(per adesso).
 Tramite l'app è possibile pilotare tutti i dispositivi che avrai installato in casa tua tramite il nome che gli avrai dato.
 Questo sistema sfrutta il protocollo MQTT ma per ora senza certificati quindi assicurati di non appoggiarti a reti pubbliche e non usare password
 che usi altrove o comuni!
-Per aggiungere un dispositivo nella tua app ti basterà andare alla voce 'MENU' e poi ad 'ADD' e inserire il nome del dispositivo che intendi utilizzare.
+Per aggiungere un dispositivo nella tua app ti basterà andare alla voce `MENU` e poi ad `ADD` e inserire il nome del dispositivo che intendi utilizzare.
 Fai attenzione alle maiuscole!
-Per rimuoverlo usa il pulsante 'REMOVE'
+Per rimuoverlo usa il pulsante `REMOVE`
+
 
 
 
