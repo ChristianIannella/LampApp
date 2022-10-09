@@ -19,45 +19,48 @@ Se decidi di creare il tuo dispositivo ci sono alcune cose che devi sapere.
 
 L'app comunica tramite due topic principali:
 
-`your_user/your-password/wifilamp/device_name`
+`your_user/your-password/wifilamp/device_name` Questo è il topic che l'app usa per comunicare col dispositivo.
 
-Questo è il topic che l'app usa per comunicare col dispositivo.
 
-`your_user/your-password/wifilamp/callback/device_name`
+`your_user/your-password/wifilamp/callback/device_name` Questo invece è il topic attraverso il quale il dispositivo risponde all app.
 
-Questo invece è il topic attraverso il quale il dispositivo risponde all app.
+
 
 I messaggi che invia la nostra app sono semplici stringhe di testo:
 
-`on` quando premi sulla lampada quando è spenta.
 
-`off` quando premi sulla lampada quando è accesa.
+* `on` quando premi sulla lampada quando è spenta.
 
-`rainbow` quando premi il pulsante `RAINBOW`.
+* `off` quando premi sulla lampada quando è accesa.
 
-`255,255,255,255` quando scegli un colore(rosso,verde,blu,luminosità).
+* `rainbow` quando premi il pulsante `RAINBOW`.
+
+* `255,255,255,255` quando scegli un colore(rosso,verde,blu,luminosità).
+
 
 Una volta che la nostra app ha inviato uno di questi messaggi si aspetta una risposta, ecco un esempio per ogni tipo di comando:
 
 
-`your_user/your-password/wifilamp/device_name/on`
+Messaggio: `your_user/your-password/wifilamp/device_name/on`
 
-`your_user/your-password/wifilamp/callback/device_name/on`
-
-
-`your_user/your-password/wifilamp/device_name/off`
-
-`your_user/your-password/wifilamp/callback/device_name/off`
+Risposta: `your_user/your-password/wifilamp/callback/device_name/on`
 
 
-`your_user/your-password/wifilamp/device_name/rainbow`
+Messaggio: `your_user/your-password/wifilamp/device_name/off`
 
-`your_user/your-password/wifilamp/callback/device_name/rainbow`
+Risposta: `your_user/your-password/wifilamp/callback/device_name/off`
 
 
-`your_user/your-password/wifilamp/device_name/255,255,255,255`
+Messaggio: `your_user/your-password/wifilamp/device_name/rainbow`
 
-`your_user/your-password/wifilamp/callback/device_name/ok`
+Risposta: `your_user/your-password/wifilamp/callback/device_name/rainbow`
+
+
+Messaggio: `your_user/your-password/wifilamp/device_name/255,255,255,255`
+
+Risposta: `your_user/your-password/wifilamp/callback/device_name/ok`
+
+
 
 
 
