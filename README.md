@@ -1,6 +1,9 @@
 # LampApp
 A pretty remotely controlled lamp.
+
 🇮🇹/🇬🇧
+
+
 
 LampApp è un progetto open-source e open_hardware dedicato ai maker ma non solo.
 Si compone di una app e di un dispositivo(per adesso).
@@ -61,17 +64,13 @@ Messaggio: `your_user/your-password/wifilamp/device_name/255,255,255,255`
 Risposta: `your_user/your-password/wifilamp/callback/device_name/ok`
 
 
-
-
-
 [Download for Android](https://play.google.com/store/apps/details?id=com.lampapp.lampapp&hl=it&gl=IT) 
 
 iOS: coming soon 
 
 
-
-
 [How it works?(Come funziona?)](https://github.com/ChristianIannella/LampApp/blob/main/LampApp_1.2/README.md)
+
 
 # Contribute
 Please, feel free to contribute.
