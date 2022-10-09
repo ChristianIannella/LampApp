@@ -10,7 +10,7 @@ iOS: coming soon
 
 
 
-[How the app works?](https://github.com/ChristianIannella/LampApp/blob/main/LampApp_1.2/README.md)
+[How it works?(Come funziona?)](https://github.com/ChristianIannella/LampApp/blob/main/LampApp_1.2/README.md)
 
 # Contribute
 Please, feel free to contribute.
