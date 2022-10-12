@@ -13,6 +13,9 @@ Fai attenzione alle maiuscole!
 Per rimuoverlo usa il pulsante `REMOVE`
 
 
+![Alt text](screenshots/menu_screen.png?raw=true "Title") 
+
+
 Per utilizzare l'app non sei costretto ad utilizzare il dispositivo ufficiale, puoi usare qualsiasi cosa sia in grado di sfruttare il protocollo MQTT.
 Se decidi di creare il tuo dispositivo ci sono alcune cose che devi sapere.
 
