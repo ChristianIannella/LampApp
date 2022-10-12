@@ -1,4 +1,4 @@
-# LampApp
+ # LampApp
 A pretty remotely controlled lamp.
 
 🇮🇹/🇬🇧
@@ -6,7 +6,7 @@ A pretty remotely controlled lamp.
 
 
 LampApp è un progetto open-source e open_hardware dedicato ai maker ma non solo.
-Si compone di una app e di un dispositivo(per adesso).
+Si compone di una app e di un dispositivo.
 
 Tramite l'app è possibile pilotare tutti i dispositivi che avrai installato in casa tua tramite il nome che gli avrai dato.
 Questo sistema sfrutta il protocollo MQTT ma per ora senza certificati quindi assicurati di non appoggiarti a reti pubbliche e non usare password
