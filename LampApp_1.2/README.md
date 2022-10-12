@@ -1,6 +1,10 @@
 
 # HOW APP WORKS
 
+
+Quest'app utilizza la libreria [client Python MQTT di Eclipse Paho]([https://pages.github.com/](https://pypi.org/project/paho-mqtt/).
+
+
 Per aggiungere un dispositivo nella tua app ti basterà andare alla voce `MENU` e poi ad `ADD` e inserire il nome del dispositivo che intendi utilizzare.
 Fai attenzione alle maiuscole!
 Per rimuoverlo usa il pulsante `REMOVE`
