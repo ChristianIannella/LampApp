@@ -2,7 +2,7 @@
 # HOW APP WORKS
 
 
-![Alt text](LampApp_1.2/images/Logo_100x100.png?raw=true "Title") 
+![Alt text](LampApp_1.2/screenshots/home_screen.png?raw=true "Title") 
 
 
 Quest'app utilizza la libreria [client Python MQTT di Eclipse Paho](https://pypi.org/project/paho-mqtt/).
