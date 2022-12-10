@@ -1,5 +1,5 @@
 
-#LampApp Devices
+# LampApp Devices
 
 
 ![This is an image](https://github.com/ChristianIannella/LampApp/blob/main/LampApp%20device/file/pcb.png)
