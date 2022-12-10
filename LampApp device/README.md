@@ -4,14 +4,16 @@
 
 ![This is an image](https://github.com/ChristianIannella/LampApp/blob/main/LampApp%20device/file/pcb.png)
 
+
+
 Si tratta di una scheda di sviluppo basata su ESP32 WROOM. Compatibile sia con Arduino che MicroPythn. 
 La scheda all' acquisto arriverà con il firmware gia installato. Nel caso si volesse scrivere il proprio basterà collegarla tramite USB-C al pc e caricare il nuovo firmware come una normale scheda di sviluppo ESP32.
 
 Nel caso state usando PlatformIO usate queste ipostazioni:
 
-platform = espressif32
+'platform = espressif32
 board = featheresp32
-framework = arduino
+framework = arduino'
 
 Nel caso usaste Arduino IDE selezionate la scheda Adafruit ?????????
 
