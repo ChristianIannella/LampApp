@@ -11,9 +11,9 @@ La scheda all' acquisto arriverà con il firmware gia installato. Nel caso si vo
 
 Nel caso state usando PlatformIO usate queste ipostazioni:
 
-'platform = espressif32
+`platform = espressif32
 board = featheresp32
-framework = arduino'
+framework = arduino`
 
 Nel caso usaste Arduino IDE selezionate la scheda Adafruit ?????????
 
